@@ -1,49 +1,48 @@
-NAME = so_long.a
+NAME    = so_long
+CFLAGS  = -Wall -Werror -Wextra
+RM      = rm -rf
 
-SRCS =
+SRCS    = so_long.c debug.c
+OBJ     = $(SRCS:.c=.o)
 
-OBJS = ${SRCS:.c=.o}
+LIBFT    = game/libft/libft.a
+MLX      = game/mlx/libmlx.a
+PRINTF	 = game/libft/ft_printf/libftprintf.a
 
-CC = cc
+MLXFLAG = -Lmlx -lmlx -lXext -lX11 -lm -lGL
 
-CFLAGS = -Wall -Wextra -Werror
+# %.o: %.c
+# 	$(CC) -c $(CFLAGS) $< -o $@
 
-all : ${NAME} build
+$(LIBFT):
+	$(MAKE)	-C game/libft
 
-build :
-	@echo "$(YELLOW)/\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\$(RESET)"
-	@echo "$(CYAN)( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )"
-	@echo "$(MAGENTA) > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ < "
-	@echo "$(WHITE) /\_/\    █████▒▄▄▄█████▓ ██▓███   ██▀███   ██▓ ███▄    █ ▄▄▄█████▓  █████▒   /\_/\ "
-	@echo "$(RED)( o.o ) ▓██   ▒ ▓  ██▒ ▓▒▓██░  ██▒▓██ ▒ ██▒▓██▒ ██ ▀█   █ ▓  ██▒ ▓▒▓██   ▒   ( o.o )"
-	@echo "$(GREEN) /\_/\  ░▓█▒  ░ ░ ▓██▓ ░ ▒██▄█▓▒ ▒▒██▀▀█▄  ░██░▓██▒  ▐▌██▒░ ▓██▓ ░ ░▓█▒  ░    /\_/\ "
-	@echo "$(BLUE)( o.o ) ░▒█░      ▒██▒ ░ ▒██▒ ░  ░░██▓ ▒██▒░██░▒██░   ▓██░  ▒██▒ ░ ░▒█░      ( o.o )"
-	@echo "$(RED) > ^ <   ▒ ░      ▒ ░░   ▒▓▒░ ░  ░░ ▒▓ ░▒▓░░▓  ░ ▒░   ▒ ▒   ▒ ░░    ▒ ░       > ^ < "
-	@echo "$(GREEN) /\_/\   ░          ░    ░▒ ░       ░▒ ░ ▒░ ▒ ░░ ░░   ░ ▒░    ░     ░         /\_/\ "
-	@echo "$(BLUE)( o.o )  ░ ░      ░      ░░         ░░   ░  ▒ ░   ░   ░ ░   ░       ░ ░      ( o.o )"
-	@echo "$(WHITE) > ^ <                               ░      ░           ░                     > ^ < "
-	@echo "$(MAGENTA) /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\  /\_/\ "
-	@echo "$(CYAN)( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )( o.o )"
-	@echo "$(YELLOW) > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ <  > ^ < "
+$(PRINTF): $(LIBFT)
+	$(MAKE)	-C game/libft/ft_printf
 
-RED=\033[31m
-GREEN=\033[32m
-YELLOW=\033[33m
-BLUE=\033[34m
-MAGENTA=\033[35m
-CYAN=\033[36m
-WHITE=\033[37m
-RESET=\033[0m
+$(MLX):
+	$(MAKE)	-C game/mlx
 
-${NAME} : ${OBJS}
-	ar rcs $@ $^
+# Ensure get_next_line and ft_printf are compiled inside libft
 
-clean :
-	rm -f ${OBJS}
+all: $(NAME)
 
-fclean : clean
-	rm -f ${NAME} 
+$(NAME): $(OBJ) $(MLX) $(LIBFT) $(PRINTF)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX) $(LIBFT) $(PRINTF) $(MLXFLAG) -o $@
+# $(NAME): $(OBJ)
 
-re : fclean all
+clean:
+	$(RM) $(OBJ)
+	$(MAKE) -C game/libft clean
+	$(MAKE) -C game/libft/ft_printf clean
 
-.PHONY : all clean fclean re
+fclean: clean
+	$(RM) $(OBJ)
+	$(MAKE) -C game/libft fclean
+	$(MAKE) -C game/libft/ft_printf fclean
+	$(MAKE) -C game/mlx clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re 

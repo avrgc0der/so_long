@@ -1,0 +1,37 @@
+NAME    = so_long
+CFLAGS  = -Wall -Werror -Wextra
+RM      = rm -f
+
+SRCS    = so_long.c
+OBJ     = $(SRCS:.c=.o)
+
+LIBFT   = libft/libft.a
+MLX     = mlx/libmlx.a
+
+MLXFLAG = -Lmlx -lmlx -lXext -lX11 -lm -lGL
+
+LIBS    = $(MLXFLAG) $(LIBFT) $(MLX)
+
+all: $(NAME)
+
+$(NAME): $(OBJ) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBS) -o $@
+
+$(LIBFT) $(MLX):
+	$(MAKE) -C $(dir $@)
+
+%.o: %.c
+	$(CC) -c $(CFLAGS) $< -o $@
+
+clean:
+	$(RM) $(OBJ)
+	$(MAKE) -C libft clean
+	$(MAKE) -C mlx clean
+
+fclean: clean
+	$(MAKE) -C libft fclean
+	$(RM) $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
