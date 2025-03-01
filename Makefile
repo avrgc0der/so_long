@@ -1,47 +1,72 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2025/03/01 12:27:36 by tabadawi          #+#    #+#              #
+#    Updated: 2025/03/01 12:52:46 by tabadawi         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME    = so_long
+
 CFLAGS  = -Wall -Werror -Wextra
-RM      = rm -rf
+# u cud use this later
+# CFLAGS	+= -fsanitize=address -g3
+
+RM      = rm -f
 
 SRCS    = so_long.c debug.c
+
 OBJ     = $(SRCS:.c=.o)
 
-LIBFT    = game/libft/libft.a
-MLX      = game/mlx/libmlx.a
-PRINTF	 = game/libft/ft_printf/libftprintf.a
+LIBFT    = libft/libft.a
 
-MLXFLAG = -Lmlx -lmlx -lXext -lX11 -lm -lGL
+PRINTF	 = libft/ft_printf/libftprintf.a
 
-# %.o: %.c
-# 	$(CC) -c $(CFLAGS) $< -o $@
+# MLX      = linux_mlx/libmlx.a
+MLX      = mac_mlx/libmlx.a
 
-$(LIBFT):
-	$(MAKE)	-C game/libft
+# linux
+# MLXFLAG = -Lmlx -lmlx -lXext -lX11 -lm -lGL
 
-$(PRINTF): $(LIBFT)
-	$(MAKE)	-C game/libft/ft_printf
-
-$(MLX):
-	$(MAKE)	-C game/mlx
-
-# Ensure get_next_line and ft_printf are compiled inside libft
+# mac
+MLXFLAG	=	-L mac_mlx -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(MLX) $(LIBFT) $(PRINTF)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX) $(LIBFT) $(PRINTF) $(MLXFLAG) -o $@
-# $(NAME): $(OBJ)
+$(LIBFT):
+	$(MAKE)	-C libft
+
+$(PRINTF):
+	$(MAKE)	-C libft/ft_printf
+
+$(MLX):
+	$(MAKE)	-C mac_mlx
+# $(MLX):
+# 	$(MAKE)	-C linux_mlx
+
+$(NAME): $(OBJ) $(LIBFT) $(MLX) $(PRINTF)
+	$(CC) $(CFLAGS) $(OBJ) $(MLXFLAG) -o $@ $(LIBFT) $(MLX) $(PRINTF)
+
+%.o: %.c
+	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
 	$(RM) $(OBJ)
-	$(MAKE) -C game/libft clean
-	$(MAKE) -C game/libft/ft_printf clean
+	$(MAKE) -C libft clean
+	$(MAKE) -C libft/ft_printf clean
 
 fclean: clean
 	$(RM) $(OBJ)
-	$(MAKE) -C game/libft fclean
-	$(MAKE) -C game/libft/ft_printf fclean
-	$(MAKE) -C game/mlx clean
+	$(MAKE) -C libft fclean
+	$(MAKE) -C libft/ft_printf fclean
+	$(MAKE) -C mac_mlx clean
 	$(RM) $(NAME)
+	
+# $(MAKE) -C linux_mlx clean
 
 re: fclean all
 

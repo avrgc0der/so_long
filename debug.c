@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:40:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/02/28 18:59:12 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/01 12:53:15 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int main(void)
 	game->checks.coin = 1;
 	game->checks.exit = 1;
 	
-	message("hewwo", game);
+	// message("hewwo", game);
 
 	printf("======================================\n\n");
 	printf("\033[1m\033[31m""map height:\033[0m	%d\n", game->map_height);
