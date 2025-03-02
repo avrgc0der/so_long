@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+         #
+#    By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/01 12:27:36 by tabadawi          #+#    #+#              #
-#    Updated: 2025/03/01 12:52:46 by tabadawi         ###   ########.fr        #
+#    Updated: 2025/03/02 15:37:13 by enoshahi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,14 +26,14 @@ LIBFT    = libft/libft.a
 
 PRINTF	 = libft/ft_printf/libftprintf.a
 
-# MLX      = linux_mlx/libmlx.a
-MLX      = mac_mlx/libmlx.a
+MLX      = linux_mlx/libmlx.a
+# MLX      = mac_mlx/libmlx.a
 
 # linux
-# MLXFLAG = -Lmlx -lmlx -lXext -lX11 -lm -lGL
+MLXFLAG = -L linux_mlx -lmlx -lXext -lX11 -lm -lGL
 
 # mac
-MLXFLAG	=	-L mac_mlx -lmlx -framework OpenGL -framework AppKit
+# MLXFLAG	=	-L mac_mlx -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
@@ -43,10 +43,10 @@ $(LIBFT):
 $(PRINTF):
 	$(MAKE)	-C libft/ft_printf
 
-$(MLX):
-	$(MAKE)	-C mac_mlx
 # $(MLX):
-# 	$(MAKE)	-C linux_mlx
+# 	$(MAKE)	-C mac_mlx
+$(MLX):
+	$(MAKE)	-C linux_mlx
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX) $(PRINTF)
 	$(CC) $(CFLAGS) $(OBJ) $(MLXFLAG) -o $@ $(LIBFT) $(MLX) $(PRINTF)
@@ -63,9 +63,10 @@ fclean: clean
 	$(RM) $(OBJ)
 	$(MAKE) -C libft fclean
 	$(MAKE) -C libft/ft_printf fclean
-	$(MAKE) -C mac_mlx clean
+	$(MAKE) -C linux_mlx clean
 	$(RM) $(NAME)
 	
+# $(MAKE) -C mac_mlx clean
 # $(MAKE) -C linux_mlx clean
 
 re: fclean all

@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:21:52 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/02/28 18:58:17 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/02 15:33:25 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 // int	main(int ac, char **av)
 // {
 // 	t_game	vars;
-
+// 	(void)av;
 // 	if (ac <= 1)
 // 	{
-// 		message("Ewwow!!!!! uh ohhh ..... :3", vars);
+// 		message("Ewwow!!!!! uh ohhh ..... :3", &vars);
 // 		exit(1);
 // 	}
 // }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:45:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/01 12:51:00 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/03/02 15:29:58 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
-# include "mac_mlx/mlx.h"
-// # include "linux_mlx/mlx.h"
+// # include "mac_mlx/mlx.h"
+# include "linux_mlx/mlx.h"
 # include "libft/libft.h"
 # include "libft/ft_printf/ft_printf.h"
 
