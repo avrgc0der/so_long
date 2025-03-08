@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   message.c                                          :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 17:54:15 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/08 14:22:39 by enoshahi         ###   ########.fr       */
+/*   Created: 2024/08/18 14:48:11 by enoshahi          #+#    #+#             */
+/*   Updated: 2024/09/03 11:35:47 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "ft_printf.h"
 
-void	message(char *msg, t_game *game)
+int	ft_putchar(char c)
 {
-	(void)game;
-	ft_printf("%s", msg);
-	destroy_window(game);
+	return (write(1, &c, 1));
 }

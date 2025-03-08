@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   message.c                                          :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: enoshahi <enoshahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 17:54:15 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/08 14:22:39 by enoshahi         ###   ########.fr       */
+/*   Created: 2024/07/21 01:20:53 by enoshahi          #+#    #+#             */
+/*   Updated: 2024/08/11 13:11:32 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	message(char *msg, t_game *game)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	(void)game;
-	ft_printf("%s", msg);
-	destroy_window(game);
+	t_usc	*str;
+	t_usc	chr;
+	size_t	i;
+
+	str = (t_usc *)s;
+	chr = (t_usc)c;
+	i = 0;
+	while (i < n)
+	{
+		if (str[i] == chr)
+			return ((void *) &str[i]);
+		i++;
+	}
+	return (NULL);
 }

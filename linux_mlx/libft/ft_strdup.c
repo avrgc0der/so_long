@@ -1,20 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   message.c                                          :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: enoshahi <enoshahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 17:54:15 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/08 14:22:39 by enoshahi         ###   ########.fr       */
+/*   Created: 2024/07/18 02:03:06 by enoshahi          #+#    #+#             */
+/*   Updated: 2024/08/11 13:12:31 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	message(char *msg, t_game *game)
+char	*ft_strdup(const char *s)
 {
-	(void)game;
-	ft_printf("%s", msg);
-	destroy_window(game);
+	char	*dst;
+	size_t	i;
+
+	i = 0;
+	dst = malloc(ft_strlen(s) + 1);
+	if (dst == NULL)
+		return (NULL);
+	while (s[i] != '\0')
+	{
+		dst[i] = s[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }

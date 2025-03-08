@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   message.c                                          :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: enoshahi <enoshahi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 17:54:15 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/08 14:22:39 by enoshahi         ###   ########.fr       */
+/*   Created: 2024/07/22 16:32:27 by enoshahi          #+#    #+#             */
+/*   Updated: 2024/08/11 13:11:21 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	message(char *msg, t_game *game)
+t_list	*ft_lstnew(void *content)
 {
-	(void)game;
-	ft_printf("%s", msg);
-	destroy_window(game);
+	t_list	*new;
+
+	new = (t_list *)malloc(sizeof(t_list));
+	if (!new)
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }

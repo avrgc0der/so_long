@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   message.c                                          :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 17:54:15 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/08 14:22:39 by enoshahi         ###   ########.fr       */
+/*   Created: 2024/06/29 15:43:44 by enoshahi          #+#    #+#             */
+/*   Updated: 2024/08/11 12:11:56 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	message(char *msg, t_game *game)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	(void)game;
-	ft_printf("%s", msg);
-	destroy_window(game);
+	size_t	i;
+	t_usc	*str;
+
+	i = 0;
+	str = (t_usc *) s;
+	while (i < n)
+	{
+		str[i] = c;
+		i++;
+	}
+	return (s);
 }

@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:45:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/02 15:29:58 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/08 16:44:03 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include <stdbool.h> 
 // # include "mac_mlx/mlx.h"
 # include "linux_mlx/mlx.h"
 # include "libft/libft.h"
@@ -27,33 +28,46 @@
 # define PLAYER	'P'
 # define COIN	'C'
 
-typedef struct s_player
-{
-	int	x;
-	int	y;
-	int	movement;
-}		t_player;
-
 typedef struct s_checks
 {
+	int	player;
 	int	coin;
 	int	coin_dup;
-	int	player;
 	int	exit;
 	int	exit_dup;
 }		t_checks;
+
+typedef struct s_sprites
+{
+	void		*batman[1];
+	void		*floor[1];
+	void		*wall[1];
+	void		*collectible[1];
+	void		*exit[1];
+}				t_sprites;
+
+typedef struct s_parsemap
+{
+	int			fd;
+	char		**parsed_map;
+	char		**copy_map;
+	int			map_width;
+	int			map_height;
+	int			x;
+	int			y;
+	int			x_exit;
+	int			y_exit;
+}				t_parsemap;
 
 typedef struct s_game
 {
 	void		*mlx;
 	void		*window;
-	char		**parsed_map;
-	char		**copy_map;
-	void		*imgs[5];
-	int			map_width;
-	int			map_height;
-	t_player	player;
+	int			moves;
+	int			direction;
+	t_sprites	sprites;
 	t_checks	checks;
+	t_parsemap	map;
 }				t_game;
 
 typedef enum s_keys
@@ -76,6 +90,7 @@ void	initializer(t_game *game);
 
 // cleanup functions
 int		destroy_window(t_game *game);
+void	free_maps(char **parsed_map, char **copy_map, t_parsemap *map);
 
 // extra functions
 void	message(char *msg, t_game *game);
@@ -86,7 +101,6 @@ void	print_dup(t_game *game);
 void	print_data(t_game *game);
 
 #endif
-
 
 // requirements
 

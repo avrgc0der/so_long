@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:21:52 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/02 15:33:25 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/07 21:06:29 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,10 @@ void	init_vars(t_game *game)
 {
 	game->mlx = NULL;
 	game->window = NULL;
-	game->parsed_map = NULL;
-	game->player.movement = 0;
+	game->map.parsed_map = NULL;
+	game->moves = 0;
 	game->checks.coin = 0;
 	game->checks.exit = 0;
 	game->checks.coin_dup = 0;
 	game->checks.exit_dup = 0;
-	// game->
-	
 }

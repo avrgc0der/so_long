@@ -1,20 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   message.c                                          :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/23 17:54:15 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/08 14:22:39 by enoshahi         ###   ########.fr       */
+/*   Created: 2024/07/08 13:05:15 by enoshahi          #+#    #+#             */
+/*   Updated: 2024/08/11 12:12:32 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-void	message(char *msg, t_game *game)
+char	*ft_strchr(const char *s, int c)
 {
-	(void)game;
-	ft_printf("%s", msg);
-	destroy_window(game);
+	size_t	i;
+	char	curr;
+
+	curr = c;
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == curr)
+		{
+			return ((char *)&s[i]);
+		}
+		i++;
+	}
+	if (s[i] == curr)
+	{
+		return ((char *) &s[i]);
+	}
+	return (NULL);
 }
