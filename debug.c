@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 17:40:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/08 14:17:57 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/12 02:25:12 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(void)
 	game->map.y = 0;
 	game->checks.coin = 1;
 	game->checks.exit = 1;
-	message("\033[1m\033[31m""Hewwo\n", game);
 	printf("======================================\n\n");
 	printf("\033[1m\033[31m""map height:\033[0m	%d\n", game->map.map_height);
 	printf("map width:	%d\n", game->map.map_width);

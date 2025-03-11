@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:45:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/08 16:44:03 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/12 02:11:44 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
-# include <stdbool.h> 
+# include <stdbool.h>
+# include <fcntl.h>
 // # include "mac_mlx/mlx.h"
 # include "linux_mlx/mlx.h"
 # include "libft/libft.h"
@@ -27,13 +28,16 @@
 # define EXIT	'E'
 # define PLAYER	'P'
 # define COIN	'C'
+# define EF		EXIT_FAILURE
+# define ES 	EXIT_SUCCESS
+
 
 typedef struct s_checks
 {
 	int	player;
 	int	coin;
-	int	coin_dup;
 	int	exit;
+	int	coin_dup;
 	int	exit_dup;
 }		t_checks;
 
@@ -64,7 +68,6 @@ typedef struct s_game
 	void		*mlx;
 	void		*window;
 	int			moves;
-	int			direction;
 	t_sprites	sprites;
 	t_checks	checks;
 	t_parsemap	map;

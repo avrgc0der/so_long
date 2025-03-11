@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 20:29:45 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/08 16:37:49 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/12 02:25:29 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,35 +23,30 @@ void	free_sprites(t_game *game)
 
 void	end_game(t_game *game)
 {
-	message("Game over.\n", game);
+	ft_printf("Game over.\n");
 	free_sprites(game);
 	mlx_destroy_window(game->mlx, game->window);
 	exit(EXIT_SUCCESS);
 }
 
-void	free_maps(char **parsed_map, char **copy_map, t_parsemap *map)
+void	free_map(char **parsed_map, char **copy_map, t_parsemap *map)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (parsed_map)
 	{
-		while (parsed_map[i])
-		{
+		while (parsed_map[++i])
 			free(parsed_map[i]);
-			i++;
-		}
 		free(parsed_map);
 	}
-	i = 0;
+	i = -1;
 	if (copy_map)
 	{
-		while (copy_map[i])
-		{
+		while (copy_map[++i])
 			free(copy_map[i]);
-			i++;
-		}
 		free(copy_map);
 	}
-	free(map);
+	if (map)
+		free(map);
 }
