@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 20:29:45 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/12 02:25:29 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:10:45 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	end_game(t_game *game)
 	exit(EXIT_SUCCESS);
 }
 
-void	free_map(char **parsed_map, char **copy_map, t_parsemap *map)
+void	free_maps(char **parsed_map, char **copy_map, t_parsemap *map)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 02:03:31 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/12 02:23:18 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:41:32 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@
 
 char	**imglist(void)
 {
-	static char *list[5] = {
+	static char	*list[5] = {
 		"textures/sprite.xpm",
 		"textures/wall.xpm",
 		"textures/floor.xpm",
 		"textures/collectible.xpm",
 		"textures/exit.xpm",
 	};
-	int i;
-	int fd;
+	int			i;
+	int			fd;
 
 	while (i < 5)
 	{

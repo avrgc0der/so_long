@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:45:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/12 02:11:44 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/14 03:02:23 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include "linux_mlx/mlx.h"
 # include "libft/libft.h"
 # include "libft/ft_printf/ft_printf.h"
+# include "libft/get_next_line/get_next_line.h"
 
 # define WALL	'1'
 # define FLOOR	'0'
@@ -53,6 +54,8 @@ typedef struct s_sprites
 typedef struct s_parsemap
 {
 	int			fd;
+	int			emptyline;
+	char		*line;
 	char		**parsed_map;
 	char		**copy_map;
 	int			map_width;
@@ -94,9 +97,6 @@ void	initializer(t_game *game);
 // cleanup functions
 int		destroy_window(t_game *game);
 void	free_maps(char **parsed_map, char **copy_map, t_parsemap *map);
-
-// extra functions
-void	message(char *msg, t_game *game);
 
 // debug functions
 void	print_map(t_game *game);

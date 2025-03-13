@@ -6,7 +6,7 @@
 #    By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/01 12:27:36 by tabadawi          #+#    #+#              #
-#    Updated: 2025/03/06 12:14:12 by enoshahi         ###   ########.fr        #
+#    Updated: 2025/03/14 02:50:33 by enoshahi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,15 @@ CFLAGS  = -Wall -Werror -Wextra
 
 RM      = rm -f
 
-SRCS    = so_long.c debug.c message.c free.c map.c
+SRCS    = so_long.c debug.c free.c map.c
 
 OBJ     = $(SRCS:.c=.o)
 
 LIBFT    = libft/libft.a
 
-PRINTF	 = libft/ft_printf/libftprintf.a
+FT_PRINTF	 = libft/ft_printf/libftprintf.a
+
+GNL			= libft/get_next_line/get_next_line.a
 
 MLX      = linux_mlx/libmlx.a
 # MLX      = mac_mlx/libmlx.a
@@ -40,16 +42,20 @@ all: $(NAME)
 $(LIBFT):
 	$(MAKE)	-C libft
 
-$(PRINTF):
+$(FT_PRINTF):
 	$(MAKE)	-C libft/ft_printf
+
+$(GNL):
+	$(MAKE)	-C libft/get_next_line
+
 
 # $(MLX):
 # 	$(MAKE)	-C mac_mlx
 $(MLX):
 	$(MAKE)	-C linux_mlx
 
-$(NAME): $(OBJ) $(LIBFT) $(MLX) $(PRINTF)
-	$(CC) $(CFLAGS) $(OBJ) $(MLXFLAG) -o $@ $(LIBFT) $(MLX) $(PRINTF)
+$(NAME): $(OBJ) $(LIBFT) $(MLX) $(FT_PRINTF) $(GNL)
+	$(CC) $(CFLAGS) $(OBJ) $(MLXFLAG) -o $@ $(LIBFT) $(MLX) $(FT_PRINTF) $(GNL)
 
 %.o: %.c
 	$(CC) -c $(CFLAGS) $< -o $@
@@ -58,11 +64,13 @@ clean:
 	$(RM) $(OBJ)
 	$(MAKE) -C libft clean
 	$(MAKE) -C libft/ft_printf clean
+	$(MAKE) -C libft/get_next_line clean
 
 fclean: clean
 	$(RM) $(OBJ)
 	$(MAKE) -C libft fclean
 	$(MAKE) -C libft/ft_printf fclean
+	$(MAKE) -C libft/get_next_line clean
 	$(MAKE) -C linux_mlx clean
 	$(RM) $(NAME)
 	
