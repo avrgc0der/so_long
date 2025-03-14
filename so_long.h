@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:45:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/14 03:02:23 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/14 05:12:41 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,9 @@
 # define EXIT	'E'
 # define PLAYER	'P'
 # define COIN	'C'
+# define TILE	64
 # define EF		EXIT_FAILURE
 # define ES 	EXIT_SUCCESS
-
-
-typedef struct s_checks
-{
-	int	player;
-	int	coin;
-	int	exit;
-	int	coin_dup;
-	int	exit_dup;
-}		t_checks;
 
 typedef struct s_sprites
 {
@@ -58,8 +49,13 @@ typedef struct s_parsemap
 	char		*line;
 	char		**parsed_map;
 	char		**copy_map;
-	int			map_width;
-	int			map_height;
+	int			rows;
+	int			columns;
+	int			player;
+	int			coin;
+	int			exit;
+	int			coin_dup;
+	int			exit_dup;
 	int			x;
 	int			y;
 	int			x_exit;
@@ -72,7 +68,6 @@ typedef struct s_game
 	void		*window;
 	int			moves;
 	t_sprites	sprites;
-	t_checks	checks;
 	t_parsemap	map;
 }				t_game;
 
@@ -90,9 +85,19 @@ typedef enum s_keys
 }	t_keys;
 
 // game functions
-void	initializer(t_game *game);
+void	init_vars(t_game *game);
 
 // parsing functions
+void	check_char(t_parsemap *map, char c);
+void	check_size(t_game *game);
+void	check_tokens(t_parsemap *map);
+int		check_closed(char *row, char c);
+void	linecount(char *path, t_parsemap *map);
+void	validate_path(char *path, t_parsemap *map);
+void	map_borders(t_parsemap *map);
+void	get_map(char *path, t_parsemap *map);
+void	pathfinder(char **copy, int x, int y, t_parsemap *map);
+
 
 // cleanup functions
 int		destroy_window(t_game *game);

@@ -6,7 +6,7 @@
 #    By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/01 12:27:36 by tabadawi          #+#    #+#              #
-#    Updated: 2025/03/14 02:50:33 by enoshahi         ###   ########.fr        #
+#    Updated: 2025/03/14 03:43:58 by enoshahi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CFLAGS  = -Wall -Werror -Wextra
 
 RM      = rm -f
 
-SRCS    = so_long.c debug.c free.c map.c
+SRCS    = so_long.c debug.c free.c map.c images.c keys.c path.c utils.c window.c
 
 OBJ     = $(SRCS:.c=.o)
 
