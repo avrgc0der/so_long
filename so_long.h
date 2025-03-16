@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:45:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/14 05:12:41 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/16 03:54:46 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_parsemap
 	int			exit;
 	int			coin_dup;
 	int			exit_dup;
+	int			tile;
 	int			x;
 	int			y;
 	int			x_exit;
@@ -67,6 +68,8 @@ typedef struct s_game
 	void		*mlx;
 	void		*window;
 	int			moves;
+	int 		direction;
+	int			exitflag;
 	t_sprites	sprites;
 	t_parsemap	map;
 }				t_game;
@@ -86,6 +89,10 @@ typedef enum s_keys
 
 // game functions
 void	init_vars(t_game *game);
+void	imglist(void);
+void	render_elements(t_game *game);
+void	render_edges(t_game *game);
+void	render_map(t_game *game);
 
 // parsing functions
 void	check_char(t_parsemap *map, char c);
@@ -97,7 +104,7 @@ void	validate_path(char *path, t_parsemap *map);
 void	map_borders(t_parsemap *map);
 void	get_map(char *path, t_parsemap *map);
 void	pathfinder(char **copy, int x, int y, t_parsemap *map);
-
+void	init_tiles(t_game *game);
 
 // cleanup functions
 int		destroy_window(t_game *game);

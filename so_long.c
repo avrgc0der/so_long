@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:21:52 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/14 05:14:53 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/16 04:02:20 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,24 @@ void	parse_map(char *path, t_game *game)
 	free_maps(NULL, game->map.copy_map, NULL);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_game game;
+	t_game	game;
+	
+	game.moves = 0;
+	game.direction = 0;
+	imglist();
+	game.map = malloc(sizeof(t_parsemap));
 	if (ac != 2)
-		ft_putstr_fd("ERROR: Try ./so_long [Map].ber.\n", 2);
+		(ft_putstr_fd ("ERROR: Try ./so_long [Map].ber.\n", 2), exit(EF));
 	parse_map(av[1], &game);
 	game.mlx = mlx_init();
 	game.window = mlx_new_window(game.mlx, game.map.columns * TILE,
 			game.map.rows * TILE, "so_long");
-	// * rendering
+	render_map(&game);
+	mlx_hook(game.window, 2, 0, keys, &game);
+	mlx_hook(game.window, 17, 0, end_game, &game);
+	mlx_loop_hook(game.mlx, exit_check, &game);
 	// * keys
 	// * exit
 	mlx_loop(game.mlx);

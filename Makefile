@@ -6,7 +6,7 @@
 #    By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/01 12:27:36 by tabadawi          #+#    #+#              #
-#    Updated: 2025/03/14 03:43:58 by enoshahi         ###   ########.fr        #
+#    Updated: 2025/03/14 20:39:09 by enoshahi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ $(GNL):
 
 # $(MLX):
 # 	$(MAKE)	-C mac_mlx
-$(MLX):
+$(MLX): $(MLX) 
 	$(MAKE)	-C linux_mlx
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX) $(FT_PRINTF) $(GNL)

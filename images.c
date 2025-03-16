@@ -6,7 +6,7 @@
 /*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 02:03:31 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/12 15:41:32 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/16 03:12:37 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // * Static: The array persists in memory after the function ends,
 // * ensuring the list remains valid for later use.
 
-char	**imglist(void)
+void	imglist(void)
 {
 	static char	*list[5] = {
 		"textures/sprite.xpm",
