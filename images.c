@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   images.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 02:03:31 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/16 03:12:37 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:25:59 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ void	imglist(void)
 	int			i;
 	int			fd;
 
+	i = 0;
 	while (i < 5)
 	{
 		fd = open(list[i], O_RDONLY);
 		if (fd == -1)
-			(write(1, "Could not find file.", 21), exit(EF));
+			(write(1, "Could not find image.", 21), exit(EF));
 		close(fd);
 		i++;
 	}

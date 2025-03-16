@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:45:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/16 03:54:46 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:48:18 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,6 @@
 # define TILE	64
 # define EF		EXIT_FAILURE
 # define ES 	EXIT_SUCCESS
-
-typedef struct s_sprites
-{
-	void		*batman[1];
-	void		*floor[1];
-	void		*wall[1];
-	void		*collectible[1];
-	void		*exit[1];
-}				t_sprites;
 
 typedef struct s_parsemap
 {
@@ -70,8 +61,8 @@ typedef struct s_game
 	int			moves;
 	int 		direction;
 	int			exitflag;
-	t_sprites	sprites;
-	t_parsemap	map;
+	void		*sprites[5];
+	t_parsemap	*map;
 }				t_game;
 
 typedef enum s_keys
@@ -88,7 +79,7 @@ typedef enum s_keys
 }	t_keys;
 
 // game functions
-void	init_vars(t_game *game);
+void	init_map(t_game *game);
 void	imglist(void);
 void	render_elements(t_game *game);
 void	render_edges(t_game *game);
@@ -113,7 +104,7 @@ void	free_maps(char **parsed_map, char **copy_map, t_parsemap *map);
 // debug functions
 void	print_map(t_game *game);
 void	print_dup(t_game *game);
-void	print_data(t_game *game);
+void	debug(t_game *game);
 
 #endif
 

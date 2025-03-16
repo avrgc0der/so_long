@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi <enoshahi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:45:58 by enoshahi          #+#    #+#             */
-/*   Updated: 2024/11/10 19:13:43 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/16 17:08:13 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,6 @@ char	*ft_joinstr(char *s1, char *s2)
 	return (tmp);
 }
 
-size_t	ft_strlen(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str != NULL && str[i] != '\0')
-		i++;
-	return (i);
-}
-
 char	*ft_strchr(const char *s, int c)
 {
 	size_t	i;
@@ -81,19 +71,19 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	t_usc	*tmp;
-	size_t	i;
+// void	*ft_calloc(size_t count, size_t size)
+// {
+// 	t_usc	*tmp;
+// 	size_t	i;
 
-	i = 0;
-	tmp = malloc(count * size);
-	if (!tmp)
-		return (NULL);
-	while (i < count * size)
-	{
-		tmp[i] = 0;
-		i++;
-	}
-	return (tmp);
-}
+// 	i = 0;
+// 	tmp = malloc(count * size);
+// 	if (!tmp)
+// 		return (NULL);
+// 	while (i < count * size)
+// 	{
+// 		tmp[i] = 0;
+// 		i++;
+// 	}
+// 	return (tmp);
+// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi <enoshahi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/17 11:46:04 by enoshahi          #+#    #+#             */
-/*   Updated: 2024/11/10 19:12:18 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:23:18 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ typedef unsigned char	t_usc;
 char	*get_next_line(int fd);
 void	get_the_difference(char *buffer, int cap);
 char	*ft_joinstr(char *s1, char *s2);
-size_t	ft_strlen(char *str);
+// size_t	ft_strlen(char *str);
 char	*ft_strchr(const char *s, int c);
-void	*ft_calloc(size_t count, size_t size);
+// void	*ft_calloc(size_t count, size_t size);
 
 #endif

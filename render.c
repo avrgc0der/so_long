@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:46:52 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/16 03:52:37 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:36:52 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 void	init_tiles(t_game *game)
 {
-	game->map.tile = TILE;
-	game->sprites.batman[1] = mlx_xpm_file_to_image(game->mlx,
-			"textures/sprite.xpm", game->map.tile, game->map.tile);
-	game->sprites.collectible[1] = mlx_xpm_file_to_image(game->mlx,
-			"textures/collectible.xpm", game->map.tile, game->map.tile);
-	game->sprites.exit[1] = mlx_xpm_file_to_image(game->mlx,
-			"textures/exit.xpm", game->map.tile, game->map.tile);
-	game->sprites.floor[1] = mlx_xpm_file_to_image(game->mlx,
-			"textures/floor.xpm", game->map.tile, game->map.tile);
-	game->sprites.wall[1] = mlx_xpm_file_to_image(game->mlx,
-			"textures/wall.xpm", game->map.tile, game->map.tile);
+	game->map->tile = TILE;
+	game->sprites[0] = mlx_xpm_file_to_image(game->mlx,
+			"textures/sprite.xpm", &game->map->tile, &game->map->tile);
+	game->sprites[1] = mlx_xpm_file_to_image(game->mlx,
+			"textures/collectible.xpm", &game->map->tile, &game->map->tile);
+	game->sprites[2] = mlx_xpm_file_to_image(game->mlx,
+			"textures/exit.xpm", &game->map->tile, &game->map->tile);
+	game->sprites[3] = mlx_xpm_file_to_image(game->mlx,
+			"textures/floor.xpm", &game->map->tile, &game->map->tile);
+	game->sprites[4] = mlx_xpm_file_to_image(game->mlx,
+			"textures/wall.xpm", &game->map->tile, &game->map->tile);
 }
 
 void	render_map(t_game *game)
@@ -36,16 +36,16 @@ void	render_map(t_game *game)
 	j = 0;
 	init_tiles(game);
 	render_edges(game);
-	while (++i < game->map.rows - 1)
+	while (++i < game->map->rows - 1)
 	{
-		while (++j < game->map.columns - 1)
+		while (++j < game->map->columns - 1)
 		{
-			if (game->map.parsed_map[i][j] == WALL)
+			if (game->map->parsed_map[i][j] == WALL)
 				mlx_put_image_to_window(game->mlx, game->window,
-				game->sprites.wall[1], j * TILE, i * TILE);
-			if (game->map.parsed_map[i][j] != WALL)
+				game->sprites[4], j * TILE, i * TILE);
+			if (game->map->parsed_map[i][j] != WALL)
 				mlx_put_image_to_window(game->mlx, game->window,
-				game->sprites.floor[1], j * TILE, i * TILE);
+				game->sprites[3], j * TILE, i * TILE);
 		}
 		j = 0;
 	}
@@ -59,14 +59,14 @@ void	render_edges(t_game *game)
 
 	i = 0;
 	j = 0;
-	while(game->map.parsed_map[i])
+	while(game->map->parsed_map[i])
 	{
-		while(game->map.parsed_map[i][j])
+		while(game->map->parsed_map[i][j])
 		{
-			if ((i == 0 || i == game->map.rows - 1 )
-				|| (j == 0 || j == game->map.columns - 1))
+			if ((i == 0 || i == game->map->rows - 1 )
+				|| (j == 0 || j == game->map->columns - 1))
 				mlx_put_image_to_window(game->mlx, game->window,
-						game->sprites.floor[0], j * TILE, i * TILE);
+						game->sprites[4], j * TILE, i * TILE);
 			j++;
 		}
 		j = 0;
@@ -81,16 +81,19 @@ void render_elements(t_game *game)
 
 	i = -1;
 	j = -1;
-	while (game->map.parsed_map[++i])
+	while (game->map->parsed_map[++i])
 	{
-		while (game->map.parsed_map[i][++j])
+		while (game->map->parsed_map[i][++j])
 		{
-			if (game->map.parsed_map[i][j] == COIN)
+			if (game->map->parsed_map[i][j] == COIN)
 				mlx_put_image_to_window(game->mlx, game->window,
-					game->sprites.collectible[1], j * TILE, i * TILE);
-			if (game->map.parsed_map[i][j] == PLAYER)
+					game->sprites[1], j * TILE, i * TILE);
+			else if (game->map->parsed_map[i][j] == PLAYER)
 				mlx_put_image_to_window(game->mlx, game->window,
-					game->sprites.batman[1], j * TILE, i * TILE);
+					game->sprites[0], j * TILE, i * TILE);
+			else if (game->map->parsed_map[i][j] == EXIT)
+				mlx_put_image_to_window(game->mlx, game->window,
+					game->sprites[2], j * TILE, i * TILE);
 		}
 		j = -1;
 	}

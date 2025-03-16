@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 20:29:45 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/13 13:10:45 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/16 16:22:54 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	free_sprites(t_game *game)
 {
-	mlx_destroy_image(game->mlx, game->sprites.batman);
-	mlx_destroy_image(game->mlx, game->sprites.collectible);
-	mlx_destroy_image(game->mlx, game->sprites.exit);
-	mlx_destroy_image(game->mlx, game->sprites.floor);
-	mlx_destroy_image(game->mlx, game->sprites.wall);
+	mlx_destroy_image(game->mlx, game->sprites[0]);
+	mlx_destroy_image(game->mlx, game->sprites[1]);
+	mlx_destroy_image(game->mlx, game->sprites[2]);
+	mlx_destroy_image(game->mlx, game->sprites[3]);
+	mlx_destroy_image(game->mlx, game->sprites[4]);
 }
 
 void	end_game(t_game *game)
