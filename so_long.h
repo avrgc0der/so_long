@@ -6,7 +6,7 @@
 /*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:45:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/16 16:48:18 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/03/18 15:45:52 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	imglist(void);
 void	render_elements(t_game *game);
 void	render_edges(t_game *game);
 void	render_map(t_game *game);
+int	key_checker(int key, t_game *game);
 
 // parsing functions
 void	check_char(t_parsemap *map, char c);

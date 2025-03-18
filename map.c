@@ -36,7 +36,7 @@ void	check_size(t_game *game)
 		ft_putstr_fd("ERROR: Your map is too small.\n", 2);
 		(free_maps(game->map->parsed_map, game->map->copy_map, game->map), exit(EF));
 	}
-	if (game->map->columns > 23 || game->map->rows > 11)
+	if (game->map->columns > 50 || game->map->rows > 23)
 	{
 		ft_putstr_fd("ERROR: Your map is too big.\n", 2);
 		(free_maps(game->map->parsed_map, game->map->copy_map, game->map), exit(EF));

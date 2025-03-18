@@ -6,7 +6,7 @@
 /*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:21:52 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/16 17:45:12 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/03/18 15:46:04 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(int ac, char **av)
 	game.window = mlx_new_window(game.mlx, game.map->columns * TILE,
 			game.map->rows * TILE, "so_long");
 	render_map(&game);
-	// mlx_hook(game.window, 2, 0, keys, &game);
+	mlx_hook(game.window, 2, 0, key_checker, &game);
 	// mlx_hook(game.window, 17, 0, end_game, &game);
 	// mlx_loop_hook(game.mlx, exit_check, &game);
 	// * keys
