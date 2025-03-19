@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 02:28:34 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/16 17:42:40 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:57:57 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	pathfinder(char **copy, int x, int y, t_parsemap *map)
 		map->coin_dup = map->coin;
 		map->exit_dup = map->exit;
 	}
-	if (x < 0 || x > map->columns || y < 0 || y > map->rows || copy[y][x] == WALL)
+	if (x < 0 || x > map->columns || y < 0
+		|| y > map->rows || copy[y][x] == WALL)
 		return ;
 	if (copy[y][x] == COIN)
 		map->coin_dup--;

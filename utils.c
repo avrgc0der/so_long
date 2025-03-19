@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 03:13:41 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/16 16:54:43 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:28:37 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	validate_path(char *path, t_parsemap *map)
 
 int	check_closed(char *row, char c)
 {
-	int i;
-	int len;
+	int	i;
+	int	len;
 
 	i = 0;
 	len = ft_strlen(row);
@@ -47,7 +47,7 @@ int	check_closed(char *row, char c)
 void	check_char(t_parsemap *map, char c)
 {
 	if (c != PLAYER && c != COIN && c != WALL && c != FLOOR && c != EXIT)
-	{	
+	{
 		ft_putstr_fd("ERROR: Invalid token in the map->\n", 2);
 		(free_maps(map->parsed_map, map->copy_map, map), exit(EF));
 	}

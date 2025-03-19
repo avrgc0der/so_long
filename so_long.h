@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:45:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/18 15:45:52 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:18:07 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,13 @@ typedef struct s_game
 	void		*mlx;
 	void		*window;
 	int			moves;
-	int 		direction;
+	int			direction;
 	int			exitflag;
 	void		*sprites[5];
 	t_parsemap	*map;
 }				t_game;
+
+# ifdef __APPLE__
 
 typedef enum s_keys
 {
@@ -78,13 +80,29 @@ typedef enum s_keys
 	ESC = 53
 }	t_keys;
 
+# else
+
+typedef enum s_keys
+{
+	UP = 65362,
+	DOWN = 65364,
+	RIGHT = 65363,
+	LEFT = 65361,
+	W = 119,
+	A = 97,
+	S = 115,
+	D = 100,
+	ESC = 65307
+}	t_keys;
+# endif
 // game functions
 void	init_map(t_game *game);
 void	imglist(void);
+int	moves_on_screen(t_game *game);
 void	render_elements(t_game *game);
 void	render_edges(t_game *game);
 void	render_map(t_game *game);
-int	key_checker(int key, t_game *game);
+int		key_checker(int key, t_game *game);
 
 // parsing functions
 void	check_char(t_parsemap *map, char c);
@@ -101,6 +119,9 @@ void	init_tiles(t_game *game);
 // cleanup functions
 int		destroy_window(t_game *game);
 void	free_maps(char **parsed_map, char **copy_map, t_parsemap *map);
+void	free_sprites(t_game *game);
+int		end_game(t_game *game);
+void	destroy_map(t_parsemap *map);
 
 // debug functions
 void	print_map(t_game *game);

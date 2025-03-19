@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map->c                                              :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 17:57:05 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/16 15:56:47 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:53:44 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	destroy_map(t_game *game)
-{
-	int	row;
-
-	row = 0;
-	while (game->map->parsed_map[row])
-	{
-		free(game->map->parsed_map[row]);
-		row++;
-	}
-}
 
 void	check_size(t_game *game)
 {
@@ -52,19 +40,19 @@ void	check_size(t_game *game)
 	}
 }
 
-void linecount(char *path, t_parsemap *map)
+void	linecount(char *path, t_parsemap *map)
 {
-	int fd;
-	int i;
+	int	fd;
+	int	i;
 
 	i = 0;
 	fd = open(path, O_RDONLY);
 	map->line = get_next_line(fd);
-	while(map->line)
+	while (map->line)
 	{
 		i++;
 		if (map->line[0] == '\n')
-		map->emptyline = 1;
+			map->emptyline = 1;
 		if (map->line[0] != '\n' && map->emptyline == 1)
 		{
 			ft_putstr_fd("ERROR: Empty line found in map->\n", 2);
@@ -79,9 +67,9 @@ void linecount(char *path, t_parsemap *map)
 	close(fd);
 }
 
-void map_borders(t_parsemap *map)
+void	map_borders(t_parsemap *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (check_closed(map->parsed_map[0], WALL) == -1
@@ -104,8 +92,8 @@ void map_borders(t_parsemap *map)
 
 void	check_tokens(t_parsemap *map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
@@ -119,7 +107,7 @@ void	check_tokens(t_parsemap *map)
 			if (map->parsed_map[i][j] == EXIT)
 				map->exit++;
 			if (map->parsed_map[i][j] == PLAYER)
-			{	
+			{
 				map->player++;
 				map->x = j;
 				map->y = i;
@@ -133,13 +121,12 @@ void	check_tokens(t_parsemap *map)
 
 void	get_map(char *path, t_parsemap *map)
 {
-	int i;
-	int fd;
+	int	i;
+	int	fd;
 
 	i = 0;
 	linecount(path, map);
-	fd = open(path, O_RDONLY);
-	// protect fd
+	fd = open(path, O_RDONLY); // protect fd
 	map->parsed_map = malloc(sizeof(char *) * (map->rows + 1));
 	map->copy_map = malloc(sizeof(char *) * (map->rows + 1));
 	if (!map->parsed_map || !map->copy_map)

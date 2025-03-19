@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:21:52 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/18 15:46:04 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:10:23 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ void	parse_map(char *path, t_game *game)
 	if (game->map->player != 1 || game->map->exit != 1 || game->map->coin < 1)
 	{
 		ft_putstr_fd("ERROR: Wrong number of tokens.\n", 2);
-		(free_maps(game->map->parsed_map, game->map->copy_map, game->map), exit(EF));
+		(free_maps(game->map->parsed_map,
+				game->map->copy_map, game->map), exit(EF));
 	}
 	pathfinder(game->map->copy_map, game->map->x, game->map->y, game->map);
 	if (game->map->coin_dup != 0 || game->map->exit_dup != 0)
 	{
 		ft_putstr_fd("ERROR: Invalid path.\n", 2);
-		(free_maps(game->map->parsed_map, game->map->copy_map, game->map), exit(EF));
+		(free_maps(game->map->parsed_map,
+				game->map->copy_map, game->map), exit(EF));
 	}
 	debug(game);
 	free_maps(NULL, game->map->copy_map, NULL);
@@ -46,7 +48,7 @@ void	init_game(t_game *game)
 int	main(int ac, char **av)
 {
 	t_game	game;
-	
+
 	if (ac != 2)
 		(ft_putstr_fd ("ERROR: Try ./so_long [Map].ber.\n", 2), exit(EF));
 	init_game(&game);
@@ -56,11 +58,9 @@ int	main(int ac, char **av)
 	game.window = mlx_new_window(game.mlx, game.map->columns * TILE,
 			game.map->rows * TILE, "so_long");
 	render_map(&game);
-	mlx_hook(game.window, 2, 0, key_checker, &game);
-	// mlx_hook(game.window, 17, 0, end_game, &game);
-	// mlx_loop_hook(game.mlx, exit_check, &game);
-	// * keys
-	// * exit
+	mlx_hook(game.window, 2, 1L << 0, key_checker, &game);
+	mlx_hook(game.window, 17, 0, end_game, &game);
+	mlx_loop_hook(game.mlx, moves_on_screen, &game);
 	mlx_loop(game.mlx);
 	return (0);
 }

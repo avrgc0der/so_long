@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 20:15:21 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/18 16:27:06 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:49:50 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,16 @@ void	move(t_game *game, int new_x, int new_y)
 
 int	key_checker(int key, t_game *game)
 {
+	// ft_printf("%i\n", key);
 	if (key == ESC)
 		destroy_window(game);
-	if (key == UP)
+	if (key == UP || key == W)
 		move(game, game->map->x, game->map->y - 1);
-	if (key == DOWN)
+	if (key == DOWN || key == S)
 		move(game, game->map->x, game->map->y + 1);
-	if (key == LEFT)
+	if (key == LEFT || key == A)
 		move(game, game->map->x - 1, game->map->y);
-	if (key == RIGHT)
+	if (key == RIGHT || key == D)
 		move(game, game->map->x + 1, game->map->y);
 	return (0);
 }

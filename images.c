@@ -3,17 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   images.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
+/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 02:03:31 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/16 16:25:59 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:50:51 by enoshahi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// * Static: The array persists in memory after the function ends,
-// * ensuring the list remains valid for later use.
 
 void	imglist(void)
 {
