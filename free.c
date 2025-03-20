@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 20:29:45 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/19 14:18:25 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:41:30 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,52 +24,40 @@ void	free_sprites(t_game *game)
 int	end_game(t_game *game)
 {
 	ft_printf("Game over.\n");
-	free_maps(game->map->parsed_map, NULL, game->map);
+	free_maps(game->map->prsd, NULL, game->map);
 	free_sprites(game);
 	mlx_destroy_window(game->mlx, game->window);
 	exit(ES);
 }
 
-void	free_maps(char **parsed_map, char **copy_map, t_parsemap *map)
-{
-	int	i;
-
-	i = -1;
-	if (parsed_map)
-	{
-		while (parsed_map[++i])
-			free(parsed_map[i]);
-		free(parsed_map);
-	}
-	i = -1;
-	if (copy_map)
-	{
-		while (copy_map[++i])
-			free(copy_map[i]);
-		free(copy_map);
-	}
-	if (map)
-		// free(map);
-		destroy_map(map);
-}
-
-void	destroy_map(t_parsemap *map)
+void	free_map(char **map)
 {
 	int	row;
 
 	row = 0;
-	while (map->parsed_map[row])
+	while (map[row])
 	{
-		free(map->parsed_map[row]);
+		free(map[row]);
+		map[row] = NULL;
 		row++;
 	}
+	free(map);
+	map = NULL;
+}
+
+void	free_maps(char **prsd, char **copy, t_parsemap *map)
+{
+	if (prsd)
+		free_map(prsd);
+	if (copy)
+		free_map(copy);
+	free(map);
 }
 
 int	destroy_window(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->window);
-	(free_maps(game->map->parsed_map,
-			game->map->copy_map, game->map), exit(EF));
-	// free game struct
+	(free_maps(game->map->prsd,
+			game->map->copy, game->map), exit(ES));
 	exit(1);
 }

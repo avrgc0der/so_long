@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 20:15:21 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/19 13:49:50 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:43:56 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 void	move(t_game *game, int new_x, int new_y)
 {
-	if (game->map->parsed_map[new_y][new_x] == WALL)
+	if (game->map->prsd[new_y][new_x] == WALL)
 		return ;
-	if (game->map->parsed_map[new_y][new_x] == COIN)
+	if (game->map->prsd[new_y][new_x] == COIN)
+	{
+		game->map->prsd[new_y][new_x] = FLOOR;
 		game->map->coin--;
-	if (game->map->parsed_map[new_y][new_x] == EXIT && game->map->coin <= 0)
-		exit(0);
-	if (game->map->parsed_map[new_y][new_x] == EXIT && game->map->coin != 0)
+	}
+	if (game->map->prsd[new_y][new_x] == EXIT && game->map->coin <= 0)
+		end_game(game);
+	if (game->map->prsd[new_y][new_x] == EXIT && game->map->coin != 0)
 		return ;
 	mlx_put_image_to_window(game->mlx, game->window, game->sprites[3],
 		game->map->x * TILE, game->map->y * TILE);
@@ -31,11 +34,15 @@ void	move(t_game *game, int new_x, int new_y)
 	mlx_put_image_to_window(game->mlx, game->window, game->sprites[0],
 		game->map->x * TILE, game->map->y * TILE);
 	printf("Moves:	%d\n", ++game->moves);
+	if (game->moves == 500)
+	{
+		ft_printf("you really suck at this game\n");
+		end_game(game);
+	}
 }
 
 int	key_checker(int key, t_game *game)
 {
-	// ft_printf("%i\n", key);
 	if (key == ESC)
 		destroy_window(game);
 	if (key == UP || key == W)

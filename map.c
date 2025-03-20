@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 17:57:05 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/18 16:53:44 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:46:53 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,24 @@ void	check_size(t_game *game)
 	int	temp;
 
 	i = 0;
-	game->map->columns = ft_strlen(game->map->parsed_map[0]);
+	game->map->columns = ft_strlen(game->map->prsd[0]);
 	if (game->map->columns < 3 || game->map->rows < 3)
 	{
 		ft_putstr_fd("ERROR: Your map is too small.\n", 2);
-		(free_maps(game->map->parsed_map, game->map->copy_map, game->map), exit(EF));
+		(free_maps(game->map->prsd, game->map->copy, game->map), exit(EF));
 	}
 	if (game->map->columns > 50 || game->map->rows > 23)
 	{
 		ft_putstr_fd("ERROR: Your map is too big.\n", 2);
-		(free_maps(game->map->parsed_map, game->map->copy_map, game->map), exit(EF));
+		(free_maps(game->map->prsd, game->map->copy, game->map), exit(EF));
 	}
-	while (game->map->parsed_map[i])
+	while (game->map->prsd[i])
 	{
-		temp = ft_strlen(game->map->parsed_map[i++]);
+		temp = ft_strlen(game->map->prsd[i++]);
 		if (temp != game->map->columns)
 		{
 			ft_putstr_fd("ERROR: Your map is not rectangular.\n", 2);
-			(free_maps(game->map->parsed_map, game->map->copy_map, game->map), exit(EF));
+			(free_maps(game->map->prsd, game->map->copy, game->map), exit(EF));
 		}
 	}
 }
@@ -48,6 +48,11 @@ void	linecount(char *path, t_parsemap *map)
 	i = 0;
 	fd = open(path, O_RDONLY);
 	map->line = get_next_line(fd);
+	if (!map->line || !map->line[0])
+	{
+		ft_putstr_fd("ERROR: You don't have a map.\n", 2);
+		(free(map->line), (void)close(fd), free(map), exit(EF));
+	}
 	while (map->line)
 	{
 		i++;
@@ -55,7 +60,7 @@ void	linecount(char *path, t_parsemap *map)
 			map->emptyline = 1;
 		if (map->line[0] != '\n' && map->emptyline == 1)
 		{
-			ft_putstr_fd("ERROR: Empty line found in map->\n", 2);
+			ft_putstr_fd("ERROR: Empty line found in map.\n", 2);
 			(free(map->line), (void)close(fd), free(map), exit(EF));
 		}
 		else if (map->line != NULL)
@@ -72,19 +77,19 @@ void	map_borders(t_parsemap *map)
 	int	i;
 
 	i = 0;
-	if (check_closed(map->parsed_map[0], WALL) == -1
-		|| check_closed(map->parsed_map[map->rows - 1], WALL) == -1)
+	if (check_closed(map->prsd[0], WALL) == -1
+		|| check_closed(map->prsd[map->rows - 1], WALL) == -1)
 	{
-		ft_putstr_fd("ERROR: Invalid border of the map->\n", 2);
-		(free_maps(map->parsed_map, map->copy_map, map), exit(EF));
+		ft_putstr_fd("ERROR: Invalid border of the map.\n", 2);
+		(free_maps(map->prsd, map->copy, map), exit(EF));
 	}
 	while (i < map->rows)
 	{
-		if (map->parsed_map[i][0] != WALL
-			|| map->parsed_map[i][map->columns - 1] != WALL)
+		if (map->prsd[i][0] != WALL
+			|| map->prsd[i][map->columns - 1] != WALL)
 		{
-			ft_putstr_fd("ERROR: Invalid border of the map->\n", 2);
-			(free_maps(map->parsed_map, map->copy_map, map), exit(EF));
+			ft_putstr_fd("ERROR: Invalid border of the map.\n", 2);
+			(free_maps(map->prsd, map->copy, map), exit(EF));
 		}
 		i++;
 	}
@@ -101,12 +106,12 @@ void	check_tokens(t_parsemap *map)
 	{
 		while (j < map->columns)
 		{
-			check_char(map, map->parsed_map[i][j]);
-			if (map->parsed_map[i][j] == COIN)
+			check_char(map, map->prsd[i][j]);
+			if (map->prsd[i][j] == COIN)
 				map->coin++;
-			if (map->parsed_map[i][j] == EXIT)
+			if (map->prsd[i][j] == EXIT)
 				map->exit++;
-			if (map->parsed_map[i][j] == PLAYER)
+			if (map->prsd[i][j] == PLAYER)
 			{
 				map->player++;
 				map->x = j;
@@ -126,21 +131,23 @@ void	get_map(char *path, t_parsemap *map)
 
 	i = 0;
 	linecount(path, map);
-	fd = open(path, O_RDONLY); // protect fd
-	map->parsed_map = malloc(sizeof(char *) * (map->rows + 1));
-	map->copy_map = malloc(sizeof(char *) * (map->rows + 1));
-	if (!map->parsed_map || !map->copy_map)
+	fd = open(path, O_RDONLY); // protect fd EVERYWHERE
+	map->prsd = malloc(sizeof(char *) * (map->rows + 1));
+	map->copy = malloc(sizeof(char *) * (map->rows + 1));
+	if (!map->prsd || !map->copy)
 	{
 		ft_putstr_fd("ERROR: Could not create the map.\n", 2);
-		(free_maps(map->parsed_map, map->copy_map, map), exit(EF));
+		(free_maps(map->prsd, map->copy, map), exit(EF));
 	}
 	while (i < map->rows)
 	{
-		map->parsed_map[i] = ft_strtrim(get_next_line(fd), "\n");
-		map->copy_map[i] = ft_strdup(map->parsed_map[i]);
+		map->copy[i] = get_next_line(fd);
+		map->prsd[i] = ft_strtrim(map->copy[i], "\n");
+		free(map->copy[i]);
+		map->copy[i] = ft_strdup(map->prsd[i]);
 		i++;
 	}
-	map->parsed_map[i] = NULL;
-	map->copy_map[i] = NULL;
+	map->prsd[i] = NULL;
+	map->copy[i] = NULL;
 	close(fd);
 }

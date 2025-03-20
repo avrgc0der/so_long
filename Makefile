@@ -3,22 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+         #
+#    By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/01 12:27:36 by tabadawi          #+#    #+#              #
-#    Updated: 2025/03/19 14:16:31 by enoshahi         ###   ########.fr        #
+#    Updated: 2025/03/20 15:39:05 by tabadawi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME    = so_long
 
-CFLAGS  = -Wall -Werror -Wextra
+CFLAGS  = -Wall -Werror -Wextra -g3
 # u cud use this later
-CFLAGS	+= -fsanitize=address -g3
+# CFLAGS	+= -fsanitize=address -g3
 
 RM      = rm -f
 
-SRCS    = so_long.c debug.c free.c map.c images.c keys.c path.c utils.c render.c
+SRCS    = so_long.c free.c map.c path.c utils.c images.c keys.c render.c
 
 OBJ     = $(SRCS:.c=.o)
 
@@ -28,14 +28,14 @@ FT_PRINTF	 = libft/ft_printf/libftprintf.a
 
 GNL			= libft/get_next_line/get_next_line.a
 
-MLX      = linux_mlx/libmlx.a
-# MLX      = mac_mlx/libmlx.a
+# MLX      = linux_mlx/libmlx.a
+MLX      = mac_mlx/libmlx.a
 
 # linux
-MLXFLAG = -L linux_mlx -lmlx -lXext -lX11 -lm -lGL
+# MLXFLAG = -L linux_mlx -lmlx -lXext -lX11 -lm -lGL
 
 # mac
-# MLXFLAG	=	-L mac_mlx -lmlx -framework OpenGL -framework AppKit
+MLXFLAG	=	-L mac_mlx -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
 
@@ -48,11 +48,12 @@ $(FT_PRINTF):
 $(GNL):
 	$(MAKE)	-C libft/get_next_line
 
+$(MLX):
+	$(MAKE)	-C mac_mlx
 
 # $(MLX):
-# 	$(MAKE)	-C mac_mlx
-$(MLX):
-	$(MAKE)	-C linux_mlx
+# 	$(MAKE)	-C linux_mlx
+
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX) $(FT_PRINTF) $(GNL)
 	$(CC) $(CFLAGS) $(OBJ) $(MLXFLAG) -o $@ $(LIBFT) $(MLX) $(FT_PRINTF) $(GNL)
@@ -71,10 +72,9 @@ fclean: clean
 	$(MAKE) -C libft fclean
 	$(MAKE) -C libft/ft_printf fclean
 	$(MAKE) -C libft/get_next_line fclean
-	$(MAKE) -C linux_mlx clean
+	$(MAKE) -C mac_mlx clean
 	$(RM) $(NAME)
 	
-# $(MAKE) -C mac_mlx clean
 # $(MAKE) -C linux_mlx clean
 
 re: fclean all

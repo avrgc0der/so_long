@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:46:52 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/19 15:21:40 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:25:58 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,13 @@ int	moves_on_screen(t_game *game)
 {
 	char	*str;
 
-	mlx_string_put(game->mlx, game->window, 55, 25, 0xffffff, "<moves> =");
+	mlx_put_image_to_window(game->mlx, game->window,
+		game->sprites[4], 2 * TILE, 0 * TILE);
+	mlx_put_image_to_window(game->mlx, game->window,
+		game->sprites[4], 1 * TILE, 0 * TILE);
+	mlx_string_put(game->mlx, game->window, 65, 25, 0xffffff, "<moves> =");
 	str = ft_itoa(game->moves);
-	mlx_string_put(game->mlx, game->window, 120, 25, 0xffffff, str);
+	mlx_string_put(game->mlx, game->window, 160, 25, 0xffffff, str);
 	free(str);
 	return (0);
 }
@@ -51,10 +55,10 @@ void	render_map(t_game *game)
 	{
 		while (++j < game->map->columns - 1)
 		{
-			if (game->map->parsed_map[i][j] == WALL)
+			if (game->map->prsd[i][j] == WALL)
 				mlx_put_image_to_window(game->mlx, game->window,
 					game->sprites[4], j * TILE, i * TILE);
-			if (game->map->parsed_map[i][j] != WALL)
+			if (game->map->prsd[i][j] != WALL)
 				mlx_put_image_to_window(game->mlx, game->window,
 					game->sprites[3], j * TILE, i * TILE);
 		}
@@ -71,9 +75,9 @@ void	render_edges(t_game *game)
 
 	i = 0;
 	j = 0;
-	while (game->map->parsed_map[i])
+	while (game->map->prsd[i])
 	{
-		while (game->map->parsed_map[i][j])
+		while (game->map->prsd[i][j])
 		{
 			if ((i == 0 || i == game->map->rows - 1)
 				|| (j == 0 || j == game->map->columns - 1))
@@ -93,17 +97,17 @@ void	render_elements(t_game *game)
 
 	i = -1;
 	j = -1;
-	while (game->map->parsed_map[++i])
+	while (game->map->prsd[++i])
 	{
-		while (game->map->parsed_map[i][++j])
+		while (game->map->prsd[i][++j])
 		{
-			if (game->map->parsed_map[i][j] == COIN)
+			if (game->map->prsd[i][j] == COIN)
 				mlx_put_image_to_window(game->mlx, game->window,
 					game->sprites[1], j * TILE, i * TILE);
-			else if (game->map->parsed_map[i][j] == PLAYER)
+			else if (game->map->prsd[i][j] == PLAYER)
 				mlx_put_image_to_window(game->mlx, game->window,
 					game->sprites[0], j * TILE, i * TILE);
-			else if (game->map->parsed_map[i][j] == EXIT)
+			else if (game->map->prsd[i][j] == EXIT)
 				mlx_put_image_to_window(game->mlx, game->window,
 					game->sprites[2], j * TILE, i * TILE);
 		}

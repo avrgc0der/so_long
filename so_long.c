@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/09 15:21:52 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/19 15:10:23 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:39:13 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,19 @@ void	parse_map(char *path, t_game *game)
 	if (game->map->player != 1 || game->map->exit != 1 || game->map->coin < 1)
 	{
 		ft_putstr_fd("ERROR: Wrong number of tokens.\n", 2);
-		(free_maps(game->map->parsed_map,
-				game->map->copy_map, game->map), exit(EF));
+		(free_maps(game->map->prsd,
+				game->map->copy, game->map), exit(EF));
 	}
-	pathfinder(game->map->copy_map, game->map->x, game->map->y, game->map);
+	find_exit(game);
+	printf("x = %d\ny = %d\n", game->map->x_exit, game->map->y_exit);
+	pathfinder(game->map->copy, game->map->x, game->map->y, game->map);
 	if (game->map->coin_dup != 0 || game->map->exit_dup != 0)
 	{
 		ft_putstr_fd("ERROR: Invalid path.\n", 2);
-		(free_maps(game->map->parsed_map,
-				game->map->copy_map, game->map), exit(EF));
+		(free_maps(game->map->prsd,
+				game->map->copy, game->map), exit(EF));
 	}
-	debug(game);
-	free_maps(NULL, game->map->copy_map, NULL);
+	free_maps(NULL, game->map->copy, NULL);
 }
 
 void	init_game(t_game *game)
@@ -43,6 +44,29 @@ void	init_game(t_game *game)
 	game->moves = 0;
 	game->map = malloc(sizeof(t_parsemap));
 	init_map(game);
+}
+
+void	find_exit(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < game->map->rows)
+	{
+		j = 0;
+		while (j < game->map->columns)
+		{
+			if (game->map->prsd[i][j] == EXIT)
+			{
+				game->map->x_exit = j;
+				game->map->y_exit = i;
+				game->map->copy[i][j] = WALL;
+			}
+			j++;
+		}
+		i++;
+	}
 }
 
 int	main(int ac, char **av)
@@ -62,5 +86,6 @@ int	main(int ac, char **av)
 	mlx_hook(game.window, 17, 0, end_game, &game);
 	mlx_loop_hook(game.mlx, moves_on_screen, &game);
 	mlx_loop(game.mlx);
+	end_game(&game);
 	return (0);
 }

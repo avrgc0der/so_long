@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 03:13:41 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/19 13:28:37 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:23:59 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	check_char(t_parsemap *map, char c)
 {
 	if (c != PLAYER && c != COIN && c != WALL && c != FLOOR && c != EXIT)
 	{
-		ft_putstr_fd("ERROR: Invalid token in the map->\n", 2);
-		(free_maps(map->parsed_map, map->copy_map, map), exit(EF));
+		ft_putstr_fd("ERROR: Invalid token in the map.\n", 2);
+		(free_maps(map->prsd, map->copy, map), exit(EF));
 	}
 }
 
@@ -61,8 +61,10 @@ void	init_map(t_game *game)
 	game->map->x = 0;
 	game->map->y = 0;
 	game->map->coin_dup = -1;
-	game->map->exit_dup = -1;
+	game->map->exit_dup = 1;
 	game->map->emptyline = -1;
 	game->map->rows = 0;
 	game->map->columns = 0;
+	game->map->copy = NULL;
+	game->map->prsd = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enoshahi < enoshahi@student.42abudhabi.    +#+  +:+       +#+        */
+/*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:45:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/19 15:18:07 by enoshahi         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:45:29 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <stdarg.h>
 # include <stdbool.h>
 # include <fcntl.h>
-// # include "mac_mlx/mlx.h"
-# include "linux_mlx/mlx.h"
+# include "mac_mlx/mlx.h"
+// # include "linux_mlx/mlx.h"
 # include "libft/libft.h"
 # include "libft/ft_printf/ft_printf.h"
 # include "libft/get_next_line/get_next_line.h"
@@ -38,8 +38,8 @@ typedef struct s_parsemap
 	int			fd;
 	int			emptyline;
 	char		*line;
-	char		**parsed_map;
-	char		**copy_map;
+	char		**prsd;
+	char		**copy;
 	int			rows;
 	int			columns;
 	int			player;
@@ -95,10 +95,11 @@ typedef enum s_keys
 	ESC = 65307
 }	t_keys;
 # endif
+
 // game functions
 void	init_map(t_game *game);
 void	imglist(void);
-int	moves_on_screen(t_game *game);
+int		moves_on_screen(t_game *game);
 void	render_elements(t_game *game);
 void	render_edges(t_game *game);
 void	render_map(t_game *game);
@@ -115,18 +116,14 @@ void	map_borders(t_parsemap *map);
 void	get_map(char *path, t_parsemap *map);
 void	pathfinder(char **copy, int x, int y, t_parsemap *map);
 void	init_tiles(t_game *game);
+void	find_exit(t_game *game);
 
 // cleanup functions
 int		destroy_window(t_game *game);
-void	free_maps(char **parsed_map, char **copy_map, t_parsemap *map);
+void	free_maps(char **prsd, char **copy, t_parsemap *map);
 void	free_sprites(t_game *game);
 int		end_game(t_game *game);
 void	destroy_map(t_parsemap *map);
-
-// debug functions
-void	print_map(t_game *game);
-void	print_dup(t_game *game);
-void	debug(t_game *game);
 
 #endif
 
