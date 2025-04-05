@@ -6,26 +6,27 @@
 /*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 03:13:41 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/20 15:23:59 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:32:22 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	validate_path(char *path, t_parsemap *map)
+void	linecount_exit(t_parsemap *map, int *fd, char *error)
 {
-	int	fd;
+	free(map->line);
+	close(*fd);
+	clean_exit(NULL, error, map);
+}
 
-	if (!path)
-		(ft_putstr_fd("ERROR: No such path.\nTry ./so_long [Map].ber\n", 2),
-			free(map), exit(EF));
-	if (ft_strncmp(&path[ft_strlen(path) - 4], ".ber", 4) != 0)
-		(ft_putstr_fd("ERROR: Wrong extension.\nTry ./so_long [Map].ber\n", 2),
-			free(map), exit(EF));
-	fd = open(path, O_RDONLY);
-	if (fd == -1)
-		(ft_putstr_fd("ERROR: No file exists.\n", 2), free(map), exit(EF));
-	close(fd);
+void	clean_exit(t_game *game, char *error, t_parsemap *map)
+{
+	ft_putstr_fd(error, 2);
+	if (game)
+		free_maps(game->map->prsd, game->map->copy, game->map);
+	else
+		free(map);
+	exit(EF);
 }
 
 int	check_closed(char *row, char c)
@@ -49,7 +50,8 @@ void	check_char(t_parsemap *map, char c)
 	if (c != PLAYER && c != COIN && c != WALL && c != FLOOR && c != EXIT)
 	{
 		ft_putstr_fd("ERROR: Invalid token in the map.\n", 2);
-		(free_maps(map->prsd, map->copy, map), exit(EF));
+		free_maps(map->prsd, map->copy, map);
+		exit(EF);
 	}
 }
 

@@ -6,7 +6,7 @@
 #    By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/01 12:27:36 by tabadawi          #+#    #+#              #
-#    Updated: 2025/03/20 15:39:05 by tabadawi         ###   ########.fr        #
+#    Updated: 2025/04/05 17:46:42 by tabadawi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,13 +28,7 @@ FT_PRINTF	 = libft/ft_printf/libftprintf.a
 
 GNL			= libft/get_next_line/get_next_line.a
 
-# MLX      = linux_mlx/libmlx.a
 MLX      = mac_mlx/libmlx.a
-
-# linux
-# MLXFLAG = -L linux_mlx -lmlx -lXext -lX11 -lm -lGL
-
-# mac
 MLXFLAG	=	-L mac_mlx -lmlx -framework OpenGL -framework AppKit
 
 all: $(NAME)
@@ -50,10 +44,6 @@ $(GNL):
 
 $(MLX):
 	$(MAKE)	-C mac_mlx
-
-# $(MLX):
-# 	$(MAKE)	-C linux_mlx
-
 
 $(NAME): $(OBJ) $(LIBFT) $(MLX) $(FT_PRINTF) $(GNL)
 	$(CC) $(CFLAGS) $(OBJ) $(MLXFLAG) -o $@ $(LIBFT) $(MLX) $(FT_PRINTF) $(GNL)
@@ -74,8 +64,6 @@ fclean: clean
 	$(MAKE) -C libft/get_next_line fclean
 	$(MAKE) -C mac_mlx clean
 	$(RM) $(NAME)
-	
-# $(MAKE) -C linux_mlx clean
 
 re: fclean all
 

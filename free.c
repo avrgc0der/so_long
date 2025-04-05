@@ -6,7 +6,7 @@
 /*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 20:29:45 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/20 15:41:30 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/04/05 17:45:22 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_sprites(t_game *game)
 int	end_game(t_game *game)
 {
 	ft_printf("Game over.\n");
-	free_maps(game->map->prsd, NULL, game->map);
+	free_maps(game->map->prsd, game->map->copy, game->map);
 	free_sprites(game);
 	mlx_destroy_window(game->mlx, game->window);
 	exit(ES);

@@ -6,7 +6,7 @@
 /*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 19:45:17 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/20 15:45:29 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:32:51 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <stdbool.h>
 # include <fcntl.h>
 # include "mac_mlx/mlx.h"
-// # include "linux_mlx/mlx.h"
 # include "libft/libft.h"
 # include "libft/ft_printf/ft_printf.h"
 # include "libft/get_next_line/get_next_line.h"
@@ -65,8 +64,6 @@ typedef struct s_game
 	t_parsemap	*map;
 }				t_game;
 
-# ifdef __APPLE__
-
 typedef enum s_keys
 {
 	UP = 126,
@@ -79,22 +76,6 @@ typedef enum s_keys
 	D = 2,
 	ESC = 53
 }	t_keys;
-
-# else
-
-typedef enum s_keys
-{
-	UP = 65362,
-	DOWN = 65364,
-	RIGHT = 65363,
-	LEFT = 65361,
-	W = 119,
-	A = 97,
-	S = 115,
-	D = 100,
-	ESC = 65307
-}	t_keys;
-# endif
 
 // game functions
 void	init_map(t_game *game);
@@ -112,8 +93,8 @@ void	check_tokens(t_parsemap *map);
 int		check_closed(char *row, char c);
 void	linecount(char *path, t_parsemap *map);
 void	validate_path(char *path, t_parsemap *map);
-void	map_borders(t_parsemap *map);
-void	get_map(char *path, t_parsemap *map);
+void	map_borders(t_parsemap *map, t_game *game);
+void	get_map(char *path, t_parsemap *map, t_game *game);
 void	pathfinder(char **copy, int x, int y, t_parsemap *map);
 void	init_tiles(t_game *game);
 void	find_exit(t_game *game);
@@ -123,38 +104,7 @@ int		destroy_window(t_game *game);
 void	free_maps(char **prsd, char **copy, t_parsemap *map);
 void	free_sprites(t_game *game);
 int		end_game(t_game *game);
-void	destroy_map(t_parsemap *map);
+void	clean_exit(t_game *game, char *error, t_parsemap *map);
+void	linecount_exit(t_parsemap *map, int *fd, char *error);
 
 #endif
-
-// requirements
-
-// map file is in correct format/extension
-	// oend of file is .ber
-
-// map file is openable and not empty
-	// open doesnt return -1
-
-// retrieve map
-	// check that file has content
-	// gnl the whole file
-	// remove \n char
-	// create duplicate (copy)
-
-// map size is correct
-	// rectangular
-	// minimum is 3*5
-
-// map is closed
-	// borders are all '1'
-
-// map has no invalid chars
-	// valid chars are 1, 0, P, C, E
-
-// map has correct count of characters
-	// at least 1 coin
-	// 1 exit
-	// 1 player
-
-// valid path
-	// flood fill

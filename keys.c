@@ -6,7 +6,7 @@
 /*   By: tabadawi <tabadawi@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 20:15:21 by enoshahi          #+#    #+#             */
-/*   Updated: 2025/03/20 15:43:56 by tabadawi         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:34:42 by tabadawi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	move(t_game *game, int new_x, int new_y)
 		game->map->x * TILE, game->map->y * TILE);
 	mlx_put_image_to_window(game->mlx, game->window, game->sprites[0],
 		game->map->x * TILE, game->map->y * TILE);
-	printf("Moves:	%d\n", ++game->moves);
+	ft_printf("Moves:	%d\n", ++game->moves);
 	if (game->moves == 500)
 	{
 		ft_printf("you really suck at this game\n");
